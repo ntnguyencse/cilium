@@ -574,9 +574,20 @@ func (l4Filter *L4Filter) ToMapState(policyOwner PolicyOwner, direction trafficd
 				}).Debug("ToMapState: Allowed remote IDs")
 			}
 		}
+
 		for _, id := range idents {
 			keyToAdd.Identity = id.Uint32()
 			keysToAdd.DenyPreferredInsert(keyToAdd, entry, identities)
+			// If Cilium is in dual-stack mode then the "World" identity
+			// needs to be split into two identities to represent World
+			// IPv6 and IPv4 traffic distinctly from one another.
+			if id == identity.ReservedIdentityWorld &&
+				option.Config.EnableIPv4 && option.Config.EnableIPv6 {
+				keyToAdd.Identity = identity.ReservedIdentityWorldIPv4.Uint32()
+				keysToAdd.DenyPreferredInsert(keyToAdd, entry, identities)
+				keyToAdd.Identity = identity.ReservedIdentityWorldIPv6.Uint32()
+				keysToAdd.DenyPreferredInsert(keyToAdd, entry, identities)
+			}
 		}
 	}
 
