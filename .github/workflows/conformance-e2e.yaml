@@ -514,12 +514,14 @@ jobs:
         with:
           provision: 'false'
           cmd: |
-            echo "!!! CLIENT !!!"
-            kubectl -n cilium-test logs deployment/test-conn-disrupt-client
-            echo "!!! SERVER !!!"
-            kubectl -n cilium-test logs deployment/test-conn-disrupt-server
-            echo "!!! SERVICE !!!"
-            kubectl get endpoints test-conn-disrupt -n cilium-test 
+            for pod in \$(kubectl -n cilium-test get pod -l name=test-conn-disrupt-client -o jsonpath='{.items..metadata.name}'); do
+              echo "!!!! \$pod"
+              kubectl -n cilium-test logs \$pod
+            done
+            for pod in \$(kubectl -n cilium-test get pod -l name=test-conn-disrupt-server -o jsonpath='{.items..metadata.name}'); do
+              echo "!!!! \$pod"
+              kubectl -n cilium-test logs \$pod
+            done
 
       - name: Fetch artifacts
         if: ${{ !success() }}
