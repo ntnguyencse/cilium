@@ -516,11 +516,11 @@ jobs:
           cmd: |
             for pod in \$(kubectl -n cilium-test get pod -l name=test-conn-disrupt-client -o jsonpath='{.items..metadata.name}'); do
               echo "!!!! \$pod"
-              kubectl -n cilium-test logs \$pod
+              kubectl -n cilium-test logs \$pod --timestamps
             done
             for pod in \$(kubectl -n cilium-test get pod -l name=test-conn-disrupt-server -o jsonpath='{.items..metadata.name}'); do
               echo "!!!! \$pod"
-              kubectl -n cilium-test logs \$pod
+              kubectl -n cilium-test logs \$pod --timestamps
             done
 
       - name: Fetch artifacts
