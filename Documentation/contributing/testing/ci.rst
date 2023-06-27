@@ -38,8 +38,6 @@ them all at once:
 +------------------+--------------------------+
 | v1.12            | /test-backport-1.12      |
 +------------------+--------------------------+
-| v1.11            | /test-backport-1.11      |
-+------------------+--------------------------+
 
 For a full list of Jenkins PR jobs, see `Jenkins (PR tab)
 <https://jenkins.cilium.io/view/PR/>`_. Trigger phrases are configured within
