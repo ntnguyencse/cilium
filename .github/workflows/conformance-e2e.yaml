@@ -53,7 +53,7 @@ concurrency:
 env:
   # renovate: datasource=github-releases depName=cilium/cilium-cli
   cilium_cli_version:
-  cilium_cli_ci_version: 6e15f6bc5fe6cbe42cf9b795e4a13d1f67a4374e
+  cilium_cli_ci_version: 74c0c3960b914a1be92e109428e372b697235d42
   check_url: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
   upgrade_cilium_from_vsn: 1.13.4
   upgrade_cilium_to_vsn: # empty = the PR version
@@ -262,6 +262,7 @@ jobs:
           echo "cilium_main_image_settings=${CILIUM_MAIN_IMAGE_SETTINGS}" >> $GITHUB_OUTPUT
 
           CILIUM_INSTALL_DEFAULTS="--wait \
+            --helm-set=cni.uninstall=false \
             --helm-set=cluster.name=default \
             --helm-set=hubble.eventBufferCapacity=65535 \
             --helm-set=bpf.monitorAggregation=none \
