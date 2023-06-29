@@ -82,6 +82,8 @@ jobs:
             kube-proxy: 'iptables'
             kpr: 'disabled'
             tunnel: 'vxlan'
+            test-upgrade: 'true'
+            test-flow-interrupts: 'true'
 
           - name: '2'
             kernel: '5.4-20230420.212204'
@@ -97,6 +99,8 @@ jobs:
             kpr: 'disabled'
             tunnel: 'disabled'
             endpoint-routes: 'true'
+            test-upgrade: 'true'
+            test-flow-interrupts: 'true'
 
           - name: '4'
             kernel: '5.10-20230420.212204'
@@ -119,6 +123,8 @@ jobs:
             endpoint-routes: 'true'
             egress-gateway: 'true'
             host-fw: 'true'
+            test-upgrade: 'true'
+            test-flow-interrupts: 'true'
 
           - name: '6'
             kernel: '6.0-20230420.212204'
@@ -129,6 +135,8 @@ jobs:
             egress-gateway: 'true'
             host-fw: 'true'
             lb-acceleration: 'testing-only'
+            test-upgrade: 'true'
+            test-flow-interrupts: 'true'
 
           - name: '7'
             kernel: 'bpf-next-20230420.212204'
@@ -138,6 +146,8 @@ jobs:
             lb-mode: 'snat'
             egress-gateway: 'true'
             lb-acceleration: 'testing-only'
+            test-upgrade: 'true'
+            test-flow-interrupts: 'true'
 
           - name: '8'
             kernel: 'bpf-next-20230420.212204'
@@ -145,6 +155,8 @@ jobs:
             kpr: 'disabled'
             tunnel: 'geneve'
             endpoint-routes: 'true'
+            test-upgrade: 'true'
+            test-flow-interrupts: 'true'
 
           - name: '9'
             kernel: '4.19-20230420.212204'
@@ -186,6 +198,8 @@ jobs:
             lb-mode: 'snat'
             endpoint-routes: 'true'
             egress-gateway: 'true'
+            test-upgrade: 'true'
+            test-flow-interrupts: 'true'
 
           - name: '13'
             kernel: '5.15-20230420.212204'
@@ -197,6 +211,8 @@ jobs:
             lb-mode: 'dsr'
             endpoint-routes: 'true'
             egress-gateway: 'true'
+            test-upgrade: 'true'
+            test-flow-interrupts: 'true'
 
           - name: '14'
             kernel: '6.0-20230420.212204'
