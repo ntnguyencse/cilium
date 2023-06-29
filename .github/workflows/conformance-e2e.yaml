@@ -262,6 +262,7 @@ jobs:
           echo "cilium_main_image_settings=${CILIUM_MAIN_IMAGE_SETTINGS}" >> $GITHUB_OUTPUT
 
           CILIUM_INSTALL_DEFAULTS="--wait \
+            --helm-set=debug.enabled=true \
             --helm-set=cni.uninstall=false \
             --helm-set=cluster.name=default \
             --helm-set=hubble.eventBufferCapacity=65535 \
