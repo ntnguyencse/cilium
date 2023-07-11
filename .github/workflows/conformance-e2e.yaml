@@ -53,7 +53,7 @@ concurrency:
 env:
   # renovate: datasource=github-releases depName=cilium/cilium-cli
   cilium_cli_version:
-  cilium_cli_ci_version: 2537baf54a403a7713464b1ef38afdb1446f2bae
+  cilium_cli_ci_version: 482d10a4fa762ea69f31f6c32c9043f334e60c43
   check_url: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
   upgrade_cilium_from_vsn: 1.13.4
   upgrade_cilium_to_vsn: # empty = the PR version
@@ -523,8 +523,6 @@ jobs:
               --junit-file "cilium-junits/${{ env.job_name }} (${{ join(matrix.*, ', ') }}).xml" \
               --junit-property github_job_step="Run tests upgrade 3 (${{ join(matrix.*, ', ') }})"
 
-            ./contrib/scripts/kind-down.sh
-
       - name: Run logs
         if: ${{ !success() }}
         uses: cilium/little-vm-helper@d04a0cf0ee684b1b249a320a0a6030ffda5eef30 # v0.0.5
@@ -538,6 +536,12 @@ jobs:
             for pod in \$(kubectl -n cilium-test get pod -l name=test-conn-disrupt-server -o jsonpath='{.items..metadata.name}'); do
               echo "!!!! \$pod"
               kubectl -n cilium-test logs \$pod --timestamps
+            done
+            echo ""
+            echo ""
+            for node in kind-control-plane kind-worker kind-worker2; do
+              echo "!!! kubelet \$node"
+              docker exec \$node journalctl -u kubelet
             done
 
       - name: Fetch artifacts
